@@ -44,11 +44,6 @@ RCT_EXPORT_METHOD(getColors:(NSString *)path options:(NSDictionary *)options cal
     for (int n = 0; n<(dimension*dimension); n++){
 
       int index = (bytesPerRow * y) + x * bytesPerPixel;
-      y++;
-      if (y==dimension){
-        y=0;
-        x++;
-      }
       int red   = rawData[index];
       int green = rawData[index + 1];
       int blue  = rawData[index + 2];
@@ -57,6 +52,11 @@ RCT_EXPORT_METHOD(getColors:(NSString *)path options:(NSDictionary *)options cal
         NSArray * a = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%i",red],[NSString stringWithFormat:@"%i",green],[NSString stringWithFormat:@"%i",blue],[NSString stringWithFormat:@"%i",alpha], nil];
         [colours addObject:a];
         pixelCount++;
+      }
+      y++;
+      if (y==dimension){
+        y=0;
+        x++;
       }
 
     }
@@ -71,16 +71,6 @@ RCT_EXPORT_METHOD(getColors:(NSString *)path options:(NSDictionary *)options cal
     for (int n = 0; n<pixelCount; n++){
 
       NSArray * pixelColours = copyColours[n];
-      // NSString * redStr = pixelColours[0];
-      // NSString * greenStr = pixelColours[1];
-      // NSString * blueStr = pixelColours[2];
-      // int baseRed = [redStr intValue];
-      // int baseGreen = [greenStr intValue];
-      // int baseBlue = [blueStr intValue];
-
-      // if (baseRed + baseBlue + baseGreen < 180) {
-      //   continue;
-      // }
 
       NSMutableArray * reds = [NSMutableArray new];
       NSMutableArray * greens = [NSMutableArray new];
